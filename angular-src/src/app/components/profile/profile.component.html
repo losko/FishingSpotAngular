@@ -1,0 +1,77 @@
+<div *ngIf="user">
+  <h2 class="page-header">{{user.name}}</h2>
+  <ul class="list-group">
+    <li class="list-group-item">Username: {{user.username}}</li>
+    <li class="list-group-item">Email: {{user.email}}</li>
+  </ul>
+</div>
+<div class="container">
+  <h1 class="page-header">Your fishing map</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="map">
+        <agm-map
+          [latitude]="lat"
+          [longitude]="lng"
+          [zoom]="zoom"
+          [zoomControl]="false"
+          (mapClick)="mapClicked($event)"
+        >
+          <!--Curent position marker-->
+          <agm-marker
+            [latitude]="lat"
+            [longitude]="lng"
+          >
+            <agm-info-window>
+              <strong>Your are here</strong>
+            </agm-info-window>
+          </agm-marker>
+          <!---->
+          <agm-marker
+            *ngFor="let m of markers; let i = index"
+            (markerClick)="clickedMarker(m, i)"
+            [latitude]="m.lat"
+            [longitude]="m.lng"
+            [markerDraggable]="m.draggable"
+            (dragEnd)="markerDragEnd(m, $event)"
+          >
+            <agm-info-window class="text-center">
+              <h6>Posted by : {{user.username}}</h6>
+              <strong>{{m.name}} <i (click)="m.editName = !m.editName" class="fa fa-pencil-square-o"></i></strong>
+              <p>{{m.info}} <i (click)="m.editInfo = !m.editInfo" class="fa fa-pencil-square-o"></i></p>
+              <p *ngIf="m.editName">
+                <input (change)="editNameFunc(m, $event.target.value)" type="text" value="{{m.name}}">
+              </p>
+              <p *ngIf="m.editInfo">
+                <input (change)="editInfoFunc(m, $event.target.value)" type="text" value="{{m.info}}">
+              </p>
+              <p>
+                <label for="privacy">Privacy</label>
+                <select *ngIf="m.privacy" name="privacy" id="privacy" (change)="editPrivacy(m, $event.target.value)">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+                <select *ngIf="!m.privacy" name="privacy" id="privacy" (change)="editPrivacy(m, $event.target.value)">
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                </select>
+              </p>
+              <p>
+                <label for="draggable">Draggable</label>
+                <select *ngIf="m.draggable" name="draggable" id="draggable" (change)="editDraggable(m, $event.target.value)">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+                <select *ngIf="!m.draggable" name="draggable" id="draggable" (change)="editDraggable(m, $event.target.value)">
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                </select>
+              </p>
+              <button (click)="deleteMarker(m)" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            </agm-info-window>
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+  </div>
+</div>
