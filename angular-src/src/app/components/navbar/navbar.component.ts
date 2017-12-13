@@ -13,26 +13,26 @@ export class NavbarComponent implements OnInit {
   isAdmin: boolean;
   username: string;
   constructor(
-    public authService:AuthService,
-    private router:Router,
-    private flashMessage:FlashMessagesService) {
+    public authService: AuthService,
+    private router: Router,
+    private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit() {
   }
 
   ngDoCheck() {
-    if(localStorage.getItem('user')) {
-      let user = JSON.parse(localStorage.getItem('user'));
+    if (localStorage.getItem('user')) {
+      const user = JSON.parse(localStorage.getItem('user'));
       this.username = user.username;
       this.isAdmin = user.isAdmin;
     }
   }
 
-  onLogoutClick(){
+  onLogoutClick() {
     this.authService.logout();
     this.flashMessage.show('You are logged out', {
-      cssClass:'alert-success',
+      cssClass: 'alert-success',
       timeout: 3000
     });
     this.router.navigate(['/login']);

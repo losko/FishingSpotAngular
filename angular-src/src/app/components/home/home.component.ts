@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MarkerService } from "../../services/marker.service";
+import { MarkerService } from '../../services/marker.service';
 import { Router } from '@angular/router';
-import { FlashMessagesService } from "angular2-flash-messages"
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ import { FlashMessagesService } from "angular2-flash-messages"
 })
 export class HomeComponent implements OnInit {
   // Zoom level
-  zoom: number = 7;
+  zoom: number;
 
   // Start Position
   lat: number;
@@ -27,22 +27,23 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getLocation();
     this.markerService.getAllPublic().subscribe(data => {
-      this.markers = data.markers
+      this.markers = data.markers;
     });
   }
 
   getLocation() {
-    if(navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
+        this.zoom = 7;
       });
     } else {
       this.error = {
         msg: 'Geolocation is not supported by this browser'
-      }
+      };
     }
-    return console.log('Loaded')
+    return console.log('Loaded');
   }
 }
 

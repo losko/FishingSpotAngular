@@ -19,15 +19,20 @@ import { AuthService } from './services/auth.service';
 import { MarkerService } from './services/marker.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
-import { AdminGuard } from './guards/adminGuard';
-import {AdminService} from './services/admin.service';
+import { AdminGuard } from './guards/admin.guard';
+import { LoggedGuard } from './guards/logged.guard';
+import { AdminService } from './services/admin.service';
+import { UsersComponent } from './components/users/users.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent, canActivate: [LoggedGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [LoggedGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AdminGuard]},
+  {path: 'users', component: UsersComponent, canActivate: [AdminGuard]},
+  {path: 'editUser/:id', component: EditUserComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({
@@ -39,7 +44,9 @@ const appRoutes: Routes = [
     ProfileComponent,
     DashboardComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    UsersComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +64,7 @@ const appRoutes: Routes = [
     AuthService,
     AuthGuard,
     AdminGuard,
+    LoggedGuard,
     MarkerService,
     AdminService
   ],

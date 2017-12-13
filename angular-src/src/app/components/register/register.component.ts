@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidateService } from "../../services/validate.service"
-import { AuthService } from "../../services/auth.service"
-import { FlashMessagesService } from "angular2-flash-messages"
-import { Router } from '@angular/router'
+import { ValidateService } from '../../services/validate.service';
+import { AuthService } from '../../services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRegisterSubmit(){
+  onRegisterSubmit() {
     const user = {
       name: this.name,
       username: this.username,
@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     // Required Fields
     if (!this.validateService.validateRegister(user)) {
       this.flashMessagesService.show('Please fill aLl required fields', {cssClass: 'alert-danger', timeout: 3000});
-      return false
+      return false;
     }
 
     // Required Email
