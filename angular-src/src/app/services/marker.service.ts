@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { tokenNotExpired } from "angular2-jwt"
-import { AuthService } from "./auth.service"
+import { tokenNotExpired } from 'angular2-jwt';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class MarkerService {
@@ -14,13 +14,13 @@ export class MarkerService {
   ) { }
 
   createMarker(marker) {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       const user = JSON.parse(localStorage.getItem('user'));
       marker.user = user.id;
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/create', marker, {headers: headers})
-        .map(res => res.json())
+        .map(res => res.json());
     } else {
       console.log('not Logged In');
     }
@@ -52,46 +52,46 @@ export class MarkerService {
   getUserAll(userId) {
     const headers = new Headers();
     headers.append('Content-type', 'application/json');
-    return this.http.get('http://localhost:3000/markers/getAll/'+ userId, {headers: headers})
+    return this.http.get('http://localhost:3000/markers/getAll/' + userId, {headers: headers})
       .map(res => res.json());
   }
 
   // Update marker
   updateMarkerName(markerId: any, marker: any) {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/updateName/' + markerId, marker, {headers: headers})
-        .map(res => res.json())
+        .map(res => res.json());
     } else {
       console.log('not Logged In');
     }
   }
 
   updateMarkerInfo(markerId: any, marker: any) {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/updateInfo/' + markerId, marker, {headers: headers})
-        .map(res => res.json())
+        .map(res => res.json());
     } else {
       console.log('not Logged In');
     }
   }
 
   updateMarkerPosition(markerId: any, marker: any) {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/updatePosition/' + markerId, marker, {headers: headers})
-        .map(res => res.json())
+        .map(res => res.json());
     } else {
       console.log('not Logged In');
     }
   }
 
   updateMarkerPrivacy(markerId: any, marker: any) {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/updatePrivacy/' + markerId, marker, {headers: headers})
@@ -102,22 +102,22 @@ export class MarkerService {
   }
 
   updateMarkerDraggable(markerId: any, marker: any) {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/updateDraggable/' + markerId, marker, {headers: headers})
-        .map(res => res.json())
+        .map(res => res.json());
     } else {
       console.log('not Logged In');
     }
   }
 
   deleteMarker(markerId: any, marker: any) {
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/delete/' + markerId, marker, {headers: headers})
-        .map(res => res.json())
+        .map(res => res.json());
     } else {
       console.log('not Logged In');
     }

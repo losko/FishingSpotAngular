@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service'
-import { Router } from "@angular/router"
-import { MarkerService } from "../../services/marker.service";
-import { FlashMessagesService } from "angular2-flash-messages"
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { MarkerService } from '../../services/marker.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-profile',
@@ -10,22 +10,21 @@ import { FlashMessagesService } from "angular2-flash-messages"
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: Object;
+  public user: Object;
   // Zoom level
-  zoom: number = 7;
-
+  public zoom = 7;
   // Start Position
-  lat: number;
-  lng: number;
+  public lat: number;
+  public lng: number;
   // Markers
-  markers: marker[];
-  error: Object;
+  public markers: marker[];
+  public error: Object;
 
   constructor(
     private authService: AuthService,
     private markerService: MarkerService,
     private flashMessagesService: FlashMessagesService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -41,7 +40,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getLocation() {
-    if(navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
@@ -49,17 +48,17 @@ export class ProfileComponent implements OnInit {
     } else {
       this.error = {
         msg: 'Geolocation is not supported by this browser'
-      }
+      };
     }
-    return console.log('Loaded')
+    return console.log('Loaded');
   }
 
   clickedMarker(marker: marker, index: number) {
-    console.log('Clicked Marker: ' + marker.name + ' At index ' + index)
+    console.log('Clicked Marker: ' + marker.name + ' At index ' + index);
   }
 
   mapClicked($event: any) {
-    let newMaker = {
+    const newMaker = {
       name: 'Click to enter a name',
       info: 'Click to enter info',
       lat: $event.coords.lat,
@@ -69,16 +68,15 @@ export class ProfileComponent implements OnInit {
       editInfo: false,
       privacy: true,
     };
-    if(this.markerService.createMarker(newMaker)) {
+    if (this.markerService.createMarker(newMaker)) {
       this.markerService.createMarker(newMaker).subscribe(data => {
-        if(data.success) {
+        if (data.success) {
           const nMarker = data.user.markers[data.user.markers.length - 1];
           this.markers.push(nMarker);
-          /*this.markers.push(data.user.markers[data.user.markers.length - 1]);*/
         } else {
           throw Error;
         }
-      })
+      });
     } else {
       this.flashMessagesService.show('Fail to create a marker', {cssClass: 'alert-danger', timeout: 3000});
     }
@@ -89,45 +87,45 @@ export class ProfileComponent implements OnInit {
     marker.lng = $event.coords.lng;
     this.markerService.updateMarkerPosition(marker._id, marker).subscribe(data => {
       /*console.log(data)*/
-    })
+    });
   }
 
   editNameFunc(marker: any, $event: any) {
     marker.name = $event;
     this.markerService.updateMarkerName(marker._id, marker).subscribe(data => {
       /*console.log(data)*/
-    })
+    });
   }
 
   editInfoFunc(marker: any, $event: any) {
     marker.info = $event;
     this.markerService.updateMarkerInfo(marker._id, marker).subscribe(data => {
       /*console.log(data)*/
-    })
+    });
   }
   editPrivacy(marker: any, $event: any) {
     /*console.log($event)*/
     marker.privacy = $event;
     this.markerService.updateMarkerPrivacy(marker._id, marker).subscribe(data => {
       /*console.log(data)*/
-    })
+    });
   }
   editDraggable(marker: any, $event: any) {
     marker.draggable = $event;
-    if($event == 'false') {
+    if ($event == 'false') {
       marker.draggable = false;
     } else {
       marker.draggable = true;
     }
     this.markerService.updateMarkerDraggable(marker._id, marker).subscribe(data => {
       /*console.log(data)*/
-    })
+    });
   }
 
   deleteMarker(marker) {
     this.markerService.deleteMarker(marker._id, marker).subscribe(data => {
         this.markers = data.markers;
-    })
+    });
   }
 }
 

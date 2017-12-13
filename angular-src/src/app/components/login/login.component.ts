@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { Router } from "@angular/router";
-import { FlashMessagesService } from "angular2-flash-messages"
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     };
 
     this.authService.authenticateUser(user).subscribe(data => {
-      if(data.success) {
+      if (data.success) {
         this.authService.storeUserData(data.token, data.user);
         this.flashMessages.show(data.msg, {cssClass: 'alert-success', timeout: 5000});
         this.router.navigate(['/']);
