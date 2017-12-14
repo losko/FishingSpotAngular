@@ -1,6 +1,6 @@
 agm-map {
   height: 40em;
 }
-.here {
-
+agm-info-window {
+  text-align: center;
 }

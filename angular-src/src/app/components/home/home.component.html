@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="page-header">Welcome to Fishing Spot</h1>
+  <h1 class="page-header">Welcome to Fishing Spot DEMO!!!</h1>
   <p class="lead">
     Welcome to my Fishing app
   </p>
@@ -32,6 +32,7 @@
               <h6>Posted By :  {{m.author.username}}</h6>
               <strong>{{m.name}}</strong>
               <p>{{m.info}}</p>
+              <p class="btn btn-primary" (click)="getDetails(m.markerDetails)">Details</p>
             </agm-info-window>
           </agm-marker>
         </agm-map>

@@ -24,15 +24,19 @@ import { LoggedGuard } from './guards/logged.guard';
 import { AdminService } from './services/admin.service';
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { MarkersDetailsComponent } from './components/markers-details/markers-details.component';
+import { AdminRegisterComponent } from './components/admin-register/admin-register.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent, canActivate: [LoggedGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [LoggedGuard]},
+  {path: 'markerDetails/:id', component: MarkersDetailsComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AdminGuard]},
   {path: 'users', component: UsersComponent, canActivate: [AdminGuard]},
-  {path: 'editUser/:id', component: EditUserComponent, canActivate: [AdminGuard]}
+  {path: 'editUser/:id', component: EditUserComponent, canActivate: [AdminGuard]},
+  {path: 'adminRegister', component: AdminRegisterComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({
@@ -46,7 +50,9 @@ const appRoutes: Routes = [
     NavbarComponent,
     FooterComponent,
     UsersComponent,
-    EditUserComponent
+    EditUserComponent,
+    MarkersDetailsComponent,
+    AdminRegisterComponent
   ],
   imports: [
     BrowserModule,

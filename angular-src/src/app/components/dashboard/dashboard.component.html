@@ -60,7 +60,8 @@
                   <option value="true">Yes</option>
                 </select>
               </p>
-              <button (click)="deleteMarker(m)" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+              <p class="btn btn-primary" (click)="getDetails(m.markerDetails)">Details</p>
+              <p class="btn btn-danger" (click)="deleteMarker(m)" >DELETE <i class="fa fa-trash-o" aria-hidden="true"></i></p>
             </agm-info-window>
           </agm-marker>
         </agm-map>

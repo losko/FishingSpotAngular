@@ -25,7 +25,6 @@ export class MarkerService {
       console.log('not Logged In');
     }
   }
-
   // Clear functions for markers
   getAll() {
     const headers = new Headers();
@@ -95,7 +94,7 @@ export class MarkerService {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/updatePrivacy/' + markerId, marker, {headers: headers})
-        .map(res => res.json())
+        .map(res => res.json());
     } else {
       console.log('not Logged In');
     }
@@ -117,6 +116,25 @@ export class MarkerService {
       const headers = new Headers();
       headers.append('Content-type', 'application/json');
       return this.http.post('http://localhost:3000/markers/delete/' + markerId, marker, {headers: headers})
+        .map(res => res.json());
+    } else {
+      console.log('not Logged In');
+    }
+  }
+  // MARKER DETAILS FUNCTIONS
+  // Get marker details by id
+  getMarkerById(detailsId) {
+    const headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    return this.http.get('http://localhost:3000/markerDetails/getById/:?id=' + detailsId, {headers: headers})
+      .map(res => res.json());
+  }
+  // Update marker By id
+  updateMarkerDetails(markerId: any, markerDetails: any) {
+    if (this.authService.loggedIn()) {
+      const headers = new Headers();
+      headers.append('Content-type', 'application/json');
+      return this.http.post('http://localhost:3000/MarkerDetails/updateDetails/' + markerId, markerDetails, {headers: headers})
         .map(res => res.json());
     } else {
       console.log('not Logged In');

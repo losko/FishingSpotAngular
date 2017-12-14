@@ -50,7 +50,10 @@ export class ProfileComponent implements OnInit {
         msg: 'Geolocation is not supported by this browser'
       };
     }
-    return console.log('Loaded');
+  }
+
+  getDetails(detailsId) {
+    this.router.navigate(['/markerDetails/:' + detailsId]);
   }
 
   clickedMarker(marker: marker, index: number) {

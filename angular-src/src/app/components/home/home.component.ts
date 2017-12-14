@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   error: Object;
   constructor(
     private markerService: MarkerService,
-    private flashMessagesService: FlashMessagesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,7 +43,10 @@ export class HomeComponent implements OnInit {
         msg: 'Geolocation is not supported by this browser'
       };
     }
-    return console.log('Loaded');
+  }
+
+  getDetails(detailsId) {
+    this.router.navigate(['/markerDetails/:' + detailsId]);
   }
 }
 

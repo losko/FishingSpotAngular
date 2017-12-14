@@ -31,6 +31,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getDetails(detailsId) {
+    this.router.navigate(['/markerDetails/:' + detailsId]);
+  }
+
   clickedMarker(marker: marker, index: number) {
     console.log('Clicked Marker: ' + marker.name + ' At index ' + index);
   }
