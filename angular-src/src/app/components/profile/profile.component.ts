@@ -12,7 +12,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class ProfileComponent implements OnInit {
   public user: Object;
   // Zoom level
-  public zoom = 7;
+  public zoom;
   // Start Position
   public lat: number;
   public lng: number;
@@ -28,6 +28,9 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.lat = 42.724418;
+    this.lng = 25.152100;
+    this.zoom = 2;
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user[0];
         this.getLocation();
@@ -44,6 +47,7 @@ export class ProfileComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
+        this.zoom = 7;
       });
     } else {
       this.error = {

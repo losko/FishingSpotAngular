@@ -25,6 +25,9 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.lat = 42.724418;
+    this.lng = 25.152100;
+    this.zoom = 2;
     this.getLocation();
     this.markerService.getAllPublic().subscribe(data => {
       this.markers = data.markers;
